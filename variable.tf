@@ -6,10 +6,6 @@ variable "cluster_version" {
     default = "1.20"
 }
 
-variable "region" {
-    default = "eu-west-1" 
-}
-
 variable "eks_managed_nodes" {
   type = bool
   default = true
