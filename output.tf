@@ -9,6 +9,6 @@ output "config_map_aws_auth" {
 }
 
 output "kubeconfig" {
-    value = "aws eks --region ${data.aws_region.name} update-kubeconfig --name ${var.cluster_name}"
+    value = "aws eks --region ${data.aws_region.current.name} update-kubeconfig --name ${var.cluster_name}"
   
 }
