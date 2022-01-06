@@ -18,19 +18,26 @@ module "eks" {
   cluster_version = var.cluster_version
   cluster_name    = var.cluster_name
   vpc_id          = var.create_vpc ? module.vpc[0].vpc_id : var.vpc_id
-  subnets         = var.create_vpc ? module.vpc[0].private_subnets : var.vpc_subnets
+  subnet_ids      = var.create_vpc ? module.vpc[0].private_subnets : var.vpc_subnets
 
   cluster_enabled_log_types = var.enable_cluster_logs ? var.cluster_enabled_log_types : []
 
-  node_groups_defaults = {
+  self_managed_node_group_defaults = var.self_managed_nodes ? {
     ami_type  = var.ami_type
     disk_size = var.disk_size
-  }
+  } : {}
 
-  node_groups = var.node_groups
+  eks_managed_node_group_defaults = var.eks_managed_nodes ? {
+    ami_type  = var.ami_type
+    disk_size = var.disk_size
+  } : {}
 
-  map_roles = var.map_roles
-  map_users = var.map_users
+  self_managed_node_groups = var.self_managed_nodes ? var.node_groups : {}
+
+  eks_managed_node_groups = var.eks_managed_nodes ? var.node_groups : {}
+
+  #map_roles = var.map_roles
+  #map_users = var.map_users
 
   tags = var.cluster_tags
 }

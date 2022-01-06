@@ -10,6 +10,15 @@ variable "region" {
     default = "eu-west-1" 
 }
 
+variable "eks_managed_nodes" {
+  type = bool
+  default = true
+}
+
+variable "self_managed_nodes" {
+  type = bool
+  default = false
+}
 
 variable "map_roles" {
   description = "Additional IAM roles to add to the aws-auth configmap."
